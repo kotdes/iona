@@ -1,0 +1,10 @@
+[package]
+name = "koterahq/iona"
+version = "0.1.0"
+license = "MIT"
+author = ["7kayoh"]
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]
+Fusion = "elttob/fusion@0.3.0"

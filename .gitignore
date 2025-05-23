@@ -1,0 +1,20 @@
+# Wally
+Packages
+
+# Project place file
+/iona.rbxlx
+
+# Roblox Studio lock files
+/*.rbxlx.lock
+/*.rbxl.lock
+
+# Rojo
+sourcemap.json
+
+# MacOS junk
+.DS_Store
+
+# Windows junk
+Thumbs.db
+ehthumbs.db
+Desktop.ini

@@ -1,0 +1,14 @@
+{
+  "name": "iona",
+  "tree": {
+    "$path": "misc/PkgInit.luau",
+
+    "Packages": {
+      "$path": "Packages",
+
+      "Iona": {
+        "$path": "src"
+      }
+    }
+  }
+}

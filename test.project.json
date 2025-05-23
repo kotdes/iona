@@ -1,0 +1,24 @@
+{
+  "name": "iona",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedStorage": {
+      "Packages": {
+        "$path": "Packages",
+
+        "Iona": {
+          "$path": "src"
+        }
+      }
+    },
+
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "Tests": {
+          "$path": "test"
+        }
+      }
+    }
+  }
+}
