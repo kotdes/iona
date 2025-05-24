@@ -1,8 +1,6 @@
 local PackageRoot = script.Parent.Parent
-local Packages = PackageRoot.Parent
 
 local Types = require(PackageRoot.Types)
-local Fusion = require(Packages.Fusion)
 
 type AspectRatioProps = {
 	Ratio: Types.CanBeValue<number>?,

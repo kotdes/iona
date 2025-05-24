@@ -1,8 +1,6 @@
 local PackageRoot = script.Parent.Parent
 local Utils = PackageRoot.Utils
-local Packages = PackageRoot.Parent
 
-local Fusion = require(Packages.Fusion)
 local Types = require(PackageRoot.Types)
 local IsThisAValue = require(Utils.IsThisAValue)
 
