@@ -1,4 +1,4 @@
-local function toUDim(value: number): UDim
+local function toUDim(value: number | UDim): UDim
 	if typeof(value) == "number" then
 		return UDim.new(0, value)
 	else

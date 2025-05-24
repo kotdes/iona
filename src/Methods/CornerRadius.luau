@@ -5,14 +5,14 @@ local IsThisAValue = require(Utils.IsThisAValue)
 local ToUDim = require(Utils.ToUDim)
 local Types = require(PackageRoot.Types)
 
-return function(scope: Types.Scope, radius: Types.CanBeValue<number | UDim>)
-	return scope:New("UICorner") {
-        CornerRadius = scope:Computed(function(peek)
-            local value = peek(radius)
-            if IsThisAValue(value) then
-                return peek(value)
-            end
-            return ToUDim(value)
-        end),
-	}
+return function(scope: Types.Scope, radius: Types.CanBeValue<UDim | number>)
+	return scope:New("UICorner")({
+		CornerRadius = if IsThisAValue(radius) then
+                scope:Computed(function(peek)
+                    local value = peek(radius)
+                    return ToUDim(value)
+                end)
+			else
+                ToUDim(radius),
+	})
 end
