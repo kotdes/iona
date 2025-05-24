@@ -10,7 +10,7 @@ type AspectRatioProps = {
 	Axis: Types.CanBeValue<Enum.DominantAxis>?,
 }
 
-return function(scope: Fusion.Scope<typeof(Fusion)>, props: AspectRatioProps)
+return function(scope: Types.Scope, props: AspectRatioProps)
 	return scope:New("UIAspectRatioConstraint") {
 		AspectRatio = props.Ratio,
 		AspectType = props.Type,

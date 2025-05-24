@@ -9,11 +9,10 @@ local IsThisAValue = require(Utils.IsThisAValue)
 type Padding = Types.CanBeValue<number | UDim>
 type Paddings = { [number]: Padding }
 type PaddingProps = Padding | Paddings | nil
-type Scope = Fusion.Scope<typeof(Fusion)>
 
 local SIDES = { "Top", "Right", "Bottom", "Left" }
 
-local function toState(scope: Scope, val: Types.CanBeValue<PaddingProps>): any -- idk how do i type this
+local function toState(scope: Types.Scope, val: Types.CanBeValue<PaddingProps>): any -- idk how do i type this
 	return IsThisAValue(val) and val or scope:Value(val)
 end
 
@@ -42,7 +41,7 @@ local function toUDim(value: number): UDim
 	end
 end
 
-return function(scope: Fusion.Scope<typeof(Fusion)>, props: PaddingProps): Instance
+return function(scope: Types.Scope, props: PaddingProps): Instance
 	local state = toState(scope, props or {})
 	local padding = scope:Computed(function(peek)
 		local raw = peek(state)
