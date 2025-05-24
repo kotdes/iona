@@ -29,7 +29,7 @@ local function main()
                 Size = UDim2.fromScale(0.5, 0.5),
 
                 [Children] = {
-                    scope:Wrap(scope:New "TextLabel" {}) {
+                    scope:Wew "TextLabel" {
                         Text = scope:Computed(function(peek)
                             return "Ratio: " .. tostring(peek(spring))
                         end),
