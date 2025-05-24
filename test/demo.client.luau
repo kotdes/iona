@@ -22,8 +22,8 @@ local function main()
             Image {
                 AspectRatio = {
                     Ratio = spring,
-                    AspectType = Enum.AspectType.FitWithinMaxSize,
-                    DominantAxis = Enum.DominantAxis.Height,
+                    Type = Enum.AspectType.FitWithinMaxSize,
+                    Axis = Enum.DominantAxis.Height,
                 },
                 Image = "rbxassetid://101114846864924",
                 Size = UDim2.fromScale(0.5, 0.5),
@@ -38,7 +38,7 @@ local function main()
                         AnchorPoint = Vector2.new(0.5, 0.5),
                         Position = UDim2.fromScale(0.5, 0.5),
                         BackgroundColor3 = Color3.new(1, 1, 0),
-                        Padding = { 5, 10 }
+                        Padding = { spring }
                     },
                 }
             }
