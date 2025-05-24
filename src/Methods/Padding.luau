@@ -1,83 +1,70 @@
--- omg please just kill me THIS IS SO COMPLICATED
--- AGGGHGHGHGH I STILL HAVENT GOT THE TYPES PROPERLY DONE YET HELP
--- ME OUT.
-
--- IONA IS SUPPOSED TO BE A WRAPPER TO ABSTRACT UI CONSTRAINTS AND MODIFIERS
--- THIS IS BECOMING CSS.... dear lord.
-
 local PackageRoot = script.Parent.Parent
 local Utils = PackageRoot.Utils
 local Packages = PackageRoot.Parent
 
+local Fusion = require(Packages.Fusion)
 local Types = require(PackageRoot.Types)
 local IsThisAValue = require(Utils.IsThisAValue)
 
--- Utility: normalize any number|UDim into a UDim
-local function wrapPaddingValue(scope, paddingValue)
-    return scope:Computed(function(peek)
-        local value = peek(paddingValue)
-        if typeof(value) == "number" then
-            return UDim.new(0, value)
-        end
-        return value
-    end)
+type Padding = Types.CanBeValue<number | UDim>
+type Paddings = { [number]: Padding }
+type PaddingProps = Padding | Paddings | nil
+type Scope = Fusion.Scope<typeof(Fusion)>
+
+local SIDES = { "Top", "Right", "Bottom", "Left" }
+
+local function toState(scope: Scope, val: Types.CanBeValue<PaddingProps>): any -- idk how do i type this
+	return IsThisAValue(val) and val or scope:Value(val)
 end
 
--- Helper to pick the correct padding from a list following CSS shorthand rules
-local function getValueAt(vals, index)
-    local count = #vals
-    if count == 0 then
-        return 0
-    elseif count == 1 then
-        return vals[1]
-    elseif count == 2 then
-        -- top/bottom = vals[1], left/right = vals[2]
-        if index == 1 or index == 3 then
-            return vals[1]
-        else
-            return vals[2]
-        end
-    elseif count == 3 then
-        -- top = vals[1], left/right = vals[2], bottom = vals[3]
-        if index == 1 then
-            return vals[1]
-        elseif index == 2 or index == 4 then
-            return vals[2]
-        else -- index == 3
-            return vals[3]
-        end
-    else
-        -- 4 or more: top, right, bottom, left
-        return vals[index]
-    end
+local function normalize(v: { number }): { number }
+	local n = #v
+	if n == 0 then
+		return { 0, 0, 0, 0 }
+	end
+	if n == 1 then
+		return { v[1], v[1], v[1], v[1] }
+	end
+	if n == 2 then
+		return { v[1], v[2], v[1], v[2] }
+	end
+	if n == 3 then
+		return { v[1], v[2], v[3], v[2] }
+	end
+	return { v[1], v[2], v[3], v[4] }
 end
 
--- Main export: process padding prop into UIPadding props
-return function(scope, props)
-    -- Wrap props into a Fusion.Value if it's a raw table, or leave if already a Value
-    local padState
-    if IsThisAValue(props) then
-        padState = props
-    elseif type(props) == "table" then
-        padState = scope:Value(props)
-    else
-        -- single number or UDim, wrap into a 1-element list
-        padState = scope:Value({ props })
-    end
+local function toUDim(value: number): UDim
+	if typeof(value) == "number" then
+		return UDim.new(0, value)
+	else
+		return value
+	end
+end
 
-    -- Build computed UDim values for each side
-    local sides = { "PaddingTop", "PaddingRight", "PaddingBottom", "PaddingLeft" }
-    local processedProps = {}
-    for i, sideName in ipairs(sides) do
-        processedProps[sideName] = wrapPaddingValue(
-            scope,
-            scope:Computed(function(peek)
-                local vals = peek(padState) or {}
-                local raw = getValueAt(vals, i)
-                return raw
-            end)
-        )
-    end
+return function(scope: Fusion.Scope<typeof(Fusion)>, props: PaddingProps): Instance
+	local state = toState(scope, props or {})
+	local padding = scope:Computed(function(peek)
+		local raw = peek(state)
+		local vals = type(raw) == "table" and raw or { raw }
+		local quad = normalize(vals)
 
-    return scope:New("UIPadding")(processedProps)
+		for index, value in quad do
+			if IsThisAValue(value) then
+				value = peek(value)
+			end
+			quad[index] = toUDim(value)
+		end
+
+		return quad
+	end)
+    local final = {}
+
+	for index, side in SIDES do
+		final["Padding" .. side] = scope:Computed(function(peek)
+			return peek(padding)[index]
+		end)
+	end
+
+	return scope:New("UIPadding")(final)
 end
