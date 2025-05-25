@@ -3,7 +3,7 @@ local Utils = PackageRoot.Utils
 local Transformers = PackageRoot.Transformers
 
 local MapValue = require(Utils.MapValue)
-local ColorSeq = require(Transformers.ColorSeq)
+local toColorSeq = require(Transformers.toColorSeq)
 local Types = require(PackageRoot.Types)
 
 type GradientColor = ColorSequence | Color3 | { From: Color3, To: Color3 }
@@ -20,7 +20,7 @@ type GradientProps = {
 return function(scope: Types.Scope, props: GradientProps)
 	return scope:New("UIGradient")({
 		Enabled = props.Enabled,
-		Color = MapValue(scope, props.Color, ColorSeq),
+		Color = MapValue(scope, props.Color, toColorSeq),
 		Transparency = props.Transparency,
 		Rotation = props.Rotation,
 		Offset = props.Offset,
