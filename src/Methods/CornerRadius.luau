@@ -1,18 +1,13 @@
 local PackageRoot = script.Parent.Parent
 local Utils = PackageRoot.Utils
+local Transformers = PackageRoot.Transformers
 
-local IsThisAValue = require(Utils.IsThisAValue)
-local ToUDim = require(Utils.ToUDim)
 local Types = require(PackageRoot.Types)
+local MapValue = require(Utils.MapValue)
+local UDim = require(Transformers.UDim)
 
 return function(scope: Types.Scope, radius: Types.CanBeValue<UDim | number>)
 	return scope:New("UICorner")({
-		CornerRadius = if IsThisAValue(radius) then
-                scope:Computed(function(peek)
-                    local value = peek(radius)
-                    return ToUDim(value)
-                end)
-			else
-                ToUDim(radius),
+		CornerRadius = MapValue(scope, radius, UDim)
 	})
 end
