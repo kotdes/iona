@@ -8,15 +8,7 @@ local toNumSeq = require(Transformers.toNumSeq)
 local toVec2 = require(Transformers.toVec2)
 local Types = require(PackageRoot.Types)
 
-type GradientProps = {
-	Enabled: Types.CanBeValue<boolean>?,
-	Color: Types.CanBeValue<Types.ColorSeqOptions>?,
-	Transparency: Types.CanBeValue<Types.NumberSeqOptions>?,
-	Rotation: Types.CanBeValue<number>?,
-	Offset: Types.CanBeValue<Types.Vector2Options>?,
-}
-
-return function(scope: Types.Scope, props: GradientProps)
+return function(scope: Types.Scope, props: Types.GradientProps)
 	return scope:New("UIGradient")({
 		Enabled = props.Enabled,
 		Color = MapValue(scope, props.Color, toColorSeq),
