@@ -1,13 +1,9 @@
-type Vector2Options = number | Vector2 | { X: number, Y: number }
+local Transformers = script.Parent
+local PackageRoot = Transformers.Parent
 
-local function toVec2(value: Vector2Options): Vector2
-	if typeof(value) == "number" then
-		return Vector2.new(value, value)
-    elseif typeof(value) == "table" then
-        return Vector2.new(value.X or 0, value.Y or 0)
-	else
-		return value
-	end
+local Types = require(PackageRoot.Types)
+
+local function toVec2(props: Types.Vector2Options): Vector2
 end
 
 return toVec2

@@ -1,6 +1,9 @@
-type NumberSequenceOptions = NumberSequence | number | { From: number, To: number }
+local Transformers = script.Parent
+local PackageRoot = Transformers.Parent
 
-local function toNumSeq(props: NumberSequenceOptions): NumberSequence
+local Types = require(PackageRoot.Types)
+
+local function toNumSeq(props: Types.NumberSeqOptions): NumberSequence
 	if typeof(props) == "number" then
 		return NumberSequence.new(props)
 	elseif typeof(props) == "table" and typeof(props.From) == "number" and typeof(props.To) == "number" then

@@ -1,6 +1,9 @@
-local function toUDim(value: number | UDim): UDim
-	if typeof(value) == "number" then
-		return UDim.new(0, value)
+local Transformers = script.Parent
+local PackageRoot = Transformers.Parent
+
+local Types = require(PackageRoot.Types)
+
+local function toUDim(props: Types.UDimOptions): UDim
 	else
 		return value
 	end
