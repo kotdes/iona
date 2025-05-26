@@ -8,14 +8,12 @@ local toNumSeq = require(Transformers.toNumSeq)
 local toVec2 = require(Transformers.toVec2)
 local Types = require(PackageRoot.Types)
 
-type GradientColor = ColorSequence | Color3 | { From: Color3, To: Color3 }
-
 type GradientProps = {
 	Enabled: Types.CanBeValue<boolean>?,
-	Color: Types.CanBeValue<GradientColor>?,
-	Transparency: Types.CanBeValue<NumberSequence>?,
+	Color: Types.CanBeValue<Types.ColorSeqOptions>?,
+	Transparency: Types.CanBeValue<Types.NumberSeqOptions>?,
 	Rotation: Types.CanBeValue<number>?,
-	Offset: Types.CanBeValue<Vector2>?,
+	Offset: Types.CanBeValue<Types.Vector2Options>?,
 }
 
 return function(scope: Types.Scope, props: GradientProps)
