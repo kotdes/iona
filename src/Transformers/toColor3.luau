@@ -1,8 +1,10 @@
 -- This is a really dumb idea, but it does help a bit in terms of convenience.
+local Transformers = script.Parent
+local PackageRoot = Transformers.Parent
 
-type Color3Options = Color3 | string | { number }
+local Types = require(PackageRoot.Types)
 
-local function toColor3(props: Color3Options): Color3
+local function toColor3(props: Types.Color3Options): Color3
     if typeof(props) == "Color3" then
         return props
     elseif typeof(props) == "string" then
