@@ -7,7 +7,7 @@ local function toNumSeq(props: Types.NumberSeqOptions): NumberSequence
 	if typeof(props) == "number" then
 		return NumberSequence.new(props)
 	elseif typeof(props) == "table" and typeof(props.From) == "number" and typeof(props.To) == "number" then
-		return NumberSequence.new({ NumberSequenceKeypoint.new(0, props.From), NumberSequenceKeypoint.new(1, props.To) })
+		return NumberSequence.new(props.From, props.To)
 	elseif typeof(props) == "NumberSequence" then
 		return props
 	else
