@@ -29,17 +29,37 @@ local function main()
                 Size = UDim2.fromScale(0.5, 0.5),
 
                 [Children] = {
-                    scope:Wew "TextLabel" {
-                        Text = scope:Computed(function(peek)
-                            return "Ratio: " .. tostring(peek(spring))
-                        end),
+                    scope:Wew "Frame" {
                         AutomaticSize = Enum.AutomaticSize.XY,
-                        TextColor3 = Color3.new(0, 0, 0),
                         AnchorPoint = Vector2.new(0.5, 0.5),
                         Position = UDim2.fromScale(0.5, 0.5),
                         BackgroundColor3 = Color3.new(1, 1, 0),
                         Padding = { spring },
                         CornerRadius = spring,
+                        Outline = {
+                            Mode = Enum.ApplyStrokeMode.Border,
+                            Color = Color3.new(0, 0, 0),
+                            Thickness = spring,
+                        },
+
+                        [Children] = {
+                            scope:Wew "TextLabel" {
+                                BackgroundTransparency = 1,
+                                FontFace = Font.new("rbxasset://fonts/families/Montserrat.json", Enum.FontWeight.Bold),
+                                Text = scope:Computed(function(peek)
+                                    return "Ratio: " .. tostring(peek(spring))
+                                end),
+                                AutomaticSize = Enum.AutomaticSize.XY,
+                                TextColor3 = Color3.new(1, 1, 1),
+
+                                Gradient = {
+                                    Color = {
+                                        From = "#000000",
+                                        To = "#0000FF"
+                                    }
+                                }
+                            },
+                        }
                     },
                 }
             }
