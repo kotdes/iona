@@ -6,7 +6,7 @@ local Fusion = require(Packages.Fusion)
 local IsThisAValue = require(Utils.IsThisAValue)
 local Types = require(PackageRoot.Types)
 
-return function(scope: Types.Scope, value: Types.CanBeValue<any>, transformer:(any) -> (any)): Fusion.Computed<any> | any
+return function(scope: Types.Scope, value: Types.CanBeValue<any>, transformer: ((any) -> (any))?): Fusion.Computed<any> | any
     if IsThisAValue(value) then
         return scope:Computed(function(peek)
             local v = peek(value)
