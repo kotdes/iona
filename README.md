@@ -27,7 +27,7 @@ With Iona, most of the above are possible because it is doing all those annoying
 
 Iona features two methods -- **Wrap** and **Wew** (Abbreivation of Wrap & New), with latter being a method combining both Scope:New and Wrap together. (i.e. `scope:Wew "TextLabel" { ... }`)
 
-```lua
+```luau
 local padding = scope:Value(5) -- 5px in state
 Scope:Wrap(Scope:New "TextLabel" {})({
   Text = "Hello Iona!",
