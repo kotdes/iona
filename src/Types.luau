@@ -42,5 +42,16 @@ type Padding = CanBeValue<number | UDim>
 type Paddings = { [number]: Padding }
 export type PaddingProps = Padding | Paddings | nil
 
+-- Iona itself
+type PropertyTable = {
+	[Fusion.SpecialKey | string]: any,
+}
+type CreateInstanceWithProps = (props: PropertyTable) -> Instance
+
+export type Iona = {
+	ionaVersion: { major: number, minor: number, isRelease: boolean },
+	Wrap: (scope: Scope, obj: Instance) -> CreateInstanceWithProps,
+	Wew: (scope: Scope, className: string) -> CreateInstanceWithProps
+}
 
 return {}
