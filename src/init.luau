@@ -9,7 +9,7 @@ local Children = Fusion.Children
 local Iona: Types.Iona
 Iona = {
 	ionaVersion = { major = 0, minor = 1, isRelease = true },
-	Wrap = function(scope, obj)
+	Wrap = function(scope, applyTo)
 		return function(props)
 			local ionaChildren = {}
 			for index, value in props do
@@ -25,7 +25,7 @@ Iona = {
 				props[Children] = ionaChildren
 			end
 
-			return scope:Hydrate(obj)(props)
+			return scope:Hydrate(applyTo)(props)
 		end
 	end,
 	Wew = function(scope, className)

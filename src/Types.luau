@@ -50,7 +50,7 @@ type CreateInstanceWithProps = (props: PropertyTable) -> Instance
 
 export type Iona = {
 	ionaVersion: { major: number, minor: number, isRelease: boolean },
-	Wrap: (scope: Scope, obj: Instance) -> CreateInstanceWithProps,
+	Wrap: (scope: Scope, applyTo: Instance) -> CreateInstanceWithProps,
 	Wew: (scope: Scope, className: string) -> CreateInstanceWithProps
 }
 
